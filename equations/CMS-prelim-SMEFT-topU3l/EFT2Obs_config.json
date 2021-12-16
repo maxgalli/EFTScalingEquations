@@ -1,0 +1,101 @@
+{
+    "blocks": [
+        "SMEFT"
+    ],
+    "inactive": {
+        "default_val": 0.0,
+        "parameters": []
+    },
+    "parameter_defaults": {
+        "block": "SMEFT",
+        "gen": 0.0,
+        "sm": 0.0,
+        "val": 0.01
+    },
+    "parameters": [
+        {
+            "index": 4,
+            "name": "chbox"
+        },
+        {
+            "index": 5,
+            "name": "chdd"
+        },
+        {
+            "index": 6,
+            "name": "chg"
+        },
+        {
+            "index": 7,
+            "name": "chw"
+        },
+        {
+            "index": 8,
+            "name": "chb"
+        },
+        {
+            "index": 9,
+            "name": "chwb"
+        },
+        {
+            "index": 11,
+            "name": "cthre"
+        },
+        {
+            "index": 13,
+            "name": "cbhre"
+        },
+        {
+            "index": 15,
+            "name": "ctgre"
+        },
+        {
+            "index": 17,
+            "name": "ctwre"
+        },
+        {
+            "index": 19,
+            "name": "ctbre"
+        },
+        {
+            "index": 27,
+            "name": "chq1"
+        },
+        {
+            "index": 29,
+            "name": "chq3"
+        },
+        {
+            "index": 31,
+            "name": "cht"
+        },
+        {
+            "index": 33,
+            "name": "chbq"
+        },
+        {
+            "index": 35,
+            "name": "chtbre"
+        },
+        {
+            "index": 100,
+            "name": "cehre"
+        },
+        {
+            "index": 103,
+            "name": "chl1"
+        },
+        {
+            "index": 104,
+            "name": "chl3"
+        },
+        {
+            "index": 105,
+            "name": "che"
+        },
+        {
+            "index": 107,
+            "name": "cll1"
+        }
+    ]
+}
