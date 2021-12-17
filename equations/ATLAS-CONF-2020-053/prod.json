@@ -418,8 +418,8 @@
         "u_A_cll1": 0.005
     }, 
     "QQ2HQQ_GE2J_MJJ_350_700_PTH_0_200_PTHJJ_GT25": {
-        "A_chbox": 50.12, 
-        "u_A_chbox": 0.5, 
+        "A_chbox": 0.12, 
+        "u_A_chbox": 0.005, 
         "A_chdd": -0.0101, 
         "u_A_chdd": 0.0005, 
         "A_chw": -0.143, 

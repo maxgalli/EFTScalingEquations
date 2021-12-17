@@ -41,7 +41,9 @@ def findCommonWilsonCoeffs(eqns1, eqns2):
   params2 = findAllParams(eqns2)
   return params1.intersection(params2), params2.difference(params1), params1.difference(params2)
 
-def makeComparisonPlot(params, values1, values2, errors1, errors2, title, saveinto):
+def makeComparisonPlot(terms, values1, values2, errors1, errors2, title, saveinto):
+  params, missing_from_1, missing_from_2 = terms
+  
   values1 = np.array(values1, dtype=float)
   values2 = np.array(values2, dtype=float)
   r1 = values1/values1
@@ -65,14 +67,31 @@ def makeComparisonPlot(params, values1, values2, errors1, errors2, title, savein
       offset2 = offset
     plt.text(i, r1[i]+offset1, "%.2g"%values1[i], horizontalalignment="center", verticalalignment="center", color="blue")
     plt.text(i, r2[i]+offset2, "%.2g"%values2[i], horizontalalignment="center", verticalalignment="center", color="orange")
-  plt.ylim(y_bot-offset*1.5, y_top+offset*1.5)
+  plt.ylim(y_bot-offset*1.5, y_top+offset*5)
+
+  x_min, x_max = plt.xlim()
+  plt.xlim(x_min-1, x_max+1)
+  x_min, x_max = plt.xlim()
+  offset = (x_max-x_min)*0.2
+  plt.xlim(x_min, x_max+offset)
+
+  missing_text_1 = "Missing from %s:\n"%options.name1 + "\n".join(missing_from_1)
+  plt.text(x_max, y_top, missing_text_1, horizontalalignment="left", verticalalignment="top")
+  missing_text_2 = "Missing from %s:\n"%options.name2 + "\n".join(missing_from_2)
+  plt.text(x_max, y_bot, missing_text_2, horizontalalignment="left", verticalalignment="bottom")
 
   plt.xticks(x, params)
   plt.ylabel("Ratio")
-  plt.legend()
+  plt.legend(loc="upper left")
   plt.title(title)
+
+  fig = matplotlib.pyplot.gcf()
+  width, height = fig.get_size_inches()
+  if len(params) > 5: width = (len(params)/5) * width
+  fig.set_size_inches(width, height)
+
   plt.savefig(os.path.join(saveinto, title+".png"))
-  plt.clf()
+  plt.close()
 
 def makeComparisonPlots(eqns1, eqns2, bins, params, saveinto):
   os.system("mkdir -p %s"%saveinto)
@@ -82,13 +101,29 @@ def makeComparisonPlots(eqns1, eqns2, bins, params, saveinto):
     all_terms = set(eqns1[b].keys()).union(eqns2[b].keys())
     all_terms = list(filter(lambda x: x[0] != "u", all_terms)) #get rid of uncertainty terms
     all_terms = list(filter(lambda x: len(set(x.split("_")[1:]).intersection(params.union(["2"]))) == len(x.split("_")[1:]), all_terms)) #keep only terms made up with coeffs from params  
-    all_terms = list(filter(lambda x: (x in eqns1[b].keys()) and (x in eqns2[b].keys()), all_terms)) #only compare terms that are both non zero
+    #all_terms = list(filter(lambda x: (x in eqns1[b].keys()) and (x in eqns2[b].keys()), all_terms)) #only compare terms that are both non zero
 
-    values1 = [eqns1[b][term] for term in all_terms]
-    values2 = [eqns2[b][term] for term in all_terms]
-    errors1 = [eqns1[b]["u_"+term] if "u_"+term in eqns1[b].keys() else 0 for term in all_terms]
-    errors2 = [eqns2[b]["u_"+term] if "u_"+term in eqns2[b].keys() else 0 for term in all_terms]
-    makeComparisonPlot(all_terms, values1, values2, errors1, errors2, b, saveinto)    
+    common_terms = list(filter(lambda x: (x in eqns1[b].keys()) and (x in eqns2[b].keys()), all_terms))
+    #missing_from_1 = list(filter(lambda x: (x not in eqns1[b].keys()) and (x in eqns2[b].keys()), all_terms))
+    #missing_from_2 = list(filter(lambda x: (x  in eqns1[b].keys()) and (x not in eqns2[b].keys()), all_terms))
+    params1 = []
+    for key in eqns1[b].keys():
+      if key[0]!="u": params1 += key.split("_")[1:]
+    params2 = []
+    for key in eqns2[b].keys():
+      if key[0]!="u": params2 += key.split("_")[1:]
+    params1 = set(params1).intersection(params)
+    params2 = set(params2).intersection(params)
+    missing_from_1 = params2.difference(params1)
+    missing_from_2 = params1.difference(params2)
+
+    terms = [common_terms, missing_from_1, missing_from_2]
+
+    values1 = [eqns1[b][term] for term in common_terms]
+    values2 = [eqns2[b][term] for term in common_terms]
+    errors1 = [eqns1[b]["u_"+term] if "u_"+term in eqns1[b].keys() else 0 for term in common_terms]
+    errors2 = [eqns2[b]["u_"+term] if "u_"+term in eqns2[b].keys() else 0 for term in common_terms]
+    makeComparisonPlot(terms, values1, values2, errors1, errors2, b, saveinto)    
 
 if __name__=="__main__":
   from optparse import OptionParser
