@@ -20,19 +20,27 @@ def cleanUp(new_json_dict, options):
 
   return new_json_dict
 
+def getNTerms(prod):
+  n = 0
+  for tag in prod.keys():
+    n += len(prod[tag].keys())/2
+  return n
+
 if __name__=="__main__":
   from optparse import OptionParser
-  parser = OptionParser(usage="%prog equations/set1 equations/set2")
+  parser = OptionParser(usage="%prog equations/set [options]")
   parser.add_option("--absoluteThreshold", dest="abs_threshold", default=0.0001, type=float)
   parser.add_option("--round", dest="round", default=False, action="store_true")
   (options, args) = parser.parse_args()
 
   with open(os.path.join(args[0], "prod.json"), "r") as f:
     prod = json.load(f, object_pairs_hook=od)
-  prod = cleanUp(prod, options)
   with open(os.path.join(args[0], "decay.json"), "r") as f:
     decay = json.load(f, object_pairs_hook=od)
+  print("Total number terms before: %d"%(getNTerms(prod)+getNTerms(decay)))
+  prod = cleanUp(prod, options)
   decay = cleanUp(decay, options)
+  print("Total number terms after: %d"%(getNTerms(prod)+getNTerms(decay)))
 
   postfix = "_" + str(options.abs_threshold).replace(".", "p")
   new_dir = args[0].strip("/")+postfix

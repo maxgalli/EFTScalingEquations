@@ -38,8 +38,16 @@
             "name": "chwb"
         },
         {
+            "index": 10,
+            "name": "cuhre"
+        },
+        {
             "index": 11,
             "name": "cthre"
+        },
+        {
+            "index": 12,
+            "name": "cdhre"
         },
         {
             "index": 13,
@@ -58,16 +66,32 @@
             "name": "ctbre"
         },
         {
+            "index": 26,
+            "name": "chj1"
+        },
+        {
             "index": 27,
             "name": "chq1"
+        },
+        {
+            "index": 28,
+            "name": "chj3"
         },
         {
             "index": 29,
             "name": "chq3"
         },
         {
+            "index": 30,
+            "name": "chu"
+        },
+        {
             "index": 31,
             "name": "cht"
+        },
+        {
+            "index": 32,
+            "name": "chd"
         },
         {
             "index": 33,
