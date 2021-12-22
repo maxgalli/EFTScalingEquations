@@ -1,0 +1,166 @@
+---
+chbox:
+    multiplier: 1
+    val: 0.
+    max: 3.
+    min: -3.
+chdd:
+    multiplier: 1
+    val: 0.
+    max: 10.
+    min: -10.
+chg:
+    multiplier: 0.001
+    val: 0.
+    max: 10.
+    min: -15.
+chw:
+    multiplier: 0.01
+    val: 0.
+    max: 3.
+    min: -3.
+chb:
+    multiplier: 0.01
+    val: 0.
+    max: 10.
+    min: -20.
+chwb:
+    multiplier: 0.01
+    val: 0.
+    max: 3.
+    min: -3.
+cehre:
+    multiplier: 1
+    val: 0.
+    max: 10.
+    min: -10.
+cuhre:
+    multiplier: 1
+    val: 0.
+    max: 5.
+    min: -5.
+cdhre:
+    multiplier: 1
+    val: 0.
+    max: 4.
+    min: -4.
+cugre:
+    multiplier: 0.1
+    val: 0.
+    max: 15.
+    min: -10.
+chl1:
+    multiplier: 1
+    val: 0.
+    max: 3.
+    min: -3.
+chl3:
+    multiplier: 0.1
+    val: 0.
+    max: 15.
+    min: -15.
+che:
+    multiplier: 1
+    val: 0.
+    max: 6.
+    min: -6.
+chq1:
+    multiplier: 0.1
+    val: 0.
+    max: 2.
+    min: -2.
+chq3:
+    multiplier: 0.1
+    val: 0.
+    max: 2.
+    min: -4.
+chu:
+    multiplier: 0.1
+    val: 0.
+    max: 3.
+    min: -3.
+chd:
+    multiplier: 0.1
+    val: 0.
+    max: 3.
+    min: -3.
+cll1:
+    multiplier: 0.1
+    val: 0.
+    max: 10.
+    min: -10.
+cuu:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+cg:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+c1qd:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+cud8:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+cuwre:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+c1qu:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+cqq3:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+cqq1:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+cqu8:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+cubre:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+c1qq1:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+cuu1:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+cqd8:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+c1ud:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
+cqq31:
+    multiplier: 1.
+    val: 0.
+    max: 5.
+    min: -5.
