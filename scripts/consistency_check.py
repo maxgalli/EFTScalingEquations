@@ -127,7 +127,7 @@ def makeComparisonPlots(eqns1, eqns2, bins, params, saveinto):
 
 if __name__=="__main__":
   from optparse import OptionParser
-  parser = OptionParser(usage="%prog equations/set1 equations/set2")
+  parser = OptionParser(usage="%prog equations/set1 equations/set2 [options]")
   parser.add_option("--name1", dest="name1", default=None)
   parser.add_option("--name2", dest="name2", default=None)
   (options, args) = parser.parse_args()
