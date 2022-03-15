@@ -47,17 +47,17 @@ cll1
 
 - For the decay modes, all contributions operators are included.
 
-
+I suggest to use Ilaria's recommendation and ignore other contributions for now.
 
 ### Derivation details
 
 | Process           | Equation derivation method                     |
 |-------------------|------------------------------------------------|
-| ggH               | SMEFTsim                                       |
+| ggH               | SMEFTatNLO                                     |
 | qqH               | SMEFTsim                                       |
 | WH_lep            | SMEFTsim                                       |
 | ZH_lep            | SMEFTsim                                       |
-| ggZH              | Use ZH_lep equations                           |
+| ggZH              | SMEFTatNLO                                     |
 | ttH               | SMEFTsim                                       |
 | tH                | SMEFTsim                                       |
 |                   |                                                |
