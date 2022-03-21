@@ -2,8 +2,6 @@ import json
 import sys
 import re
 
-
-
 with open(sys.argv[1], "r") as f:
   txt_eqn = f.read()
 
@@ -16,7 +14,7 @@ for i, char in enumerate(txt_eqn):
   if char in ["+", "-"] and txt_eqn[i-1] != "e":
     terms.append(txt_eqn[start:i])
     start = i
-terms.append(txt_eqn[start:-1])
+terms.append(txt_eqn[start:])
 terms = terms[1:] #remove "1." from the beginning
 
 lin = {}

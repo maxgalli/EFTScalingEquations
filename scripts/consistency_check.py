@@ -18,7 +18,8 @@ def loadEqns(directory):
   return eqns
 
 def findCommonBins(eqns1, eqns2):
-  bins = eqns1.keys()
+  bins = list(eqns1.keys())
+  print(bins)
   bins_to_remove = []
   for b in bins:
     if b not in eqns2.keys():
@@ -93,7 +94,7 @@ def makeComparisonPlot(terms, values1, values2, errors1, errors2, title, saveint
   plt.savefig(os.path.join(saveinto, title+".png"))
   plt.close()
 
-def makeComparisonPlots(eqns1, eqns2, bins, params, saveinto):
+def makeComparisonPlots(eqns1, eqns2, bins, params, saveinto, noCross=False, noQuadratic=False):
   os.system("mkdir -p %s"%saveinto)
 
   for b in bins:
@@ -102,6 +103,11 @@ def makeComparisonPlots(eqns1, eqns2, bins, params, saveinto):
     all_terms = list(filter(lambda x: x[0] != "u", all_terms)) #get rid of uncertainty terms
     all_terms = list(filter(lambda x: len(set(x.split("_")[1:]).intersection(params.union(["2"]))) == len(x.split("_")[1:]), all_terms)) #keep only terms made up with coeffs from params  
     #all_terms = list(filter(lambda x: (x in eqns1[b].keys()) and (x in eqns2[b].keys()), all_terms)) #only compare terms that are both non zero
+
+    if noCross:
+      all_terms = list(filter(lambda x: ("A" in x) or (("B" in x) and ("_2" in x)), all_terms))
+    if noQuadratic:
+      all_terms = list(filter(lambda x: "B" not in x, all_terms))
 
     common_terms = list(filter(lambda x: (x in eqns1[b].keys()) and (x in eqns2[b].keys()), all_terms))
     #missing_from_1 = list(filter(lambda x: (x not in eqns1[b].keys()) and (x in eqns2[b].keys()), all_terms))
@@ -130,6 +136,8 @@ if __name__=="__main__":
   parser = OptionParser(usage="%prog equations/set1 equations/set2 [options]")
   parser.add_option("--name1", dest="name1", default=None)
   parser.add_option("--name2", dest="name2", default=None)
+  parser.add_option("--noCrossTerms", action="store_true")
+  parser.add_option("--noQuadraticTerms", action="store_true")
   (options, args) = parser.parse_args()
   if options.name1 == None:
     options.name1 = args[0].strip("/").split("/")[-1]
@@ -152,4 +160,4 @@ if __name__=="__main__":
   for each in missing_coeffs_from_2:
     print(" %s"%each)
 
-  makeComparisonPlots(eqns1, eqns2, common_bins, common_coeffs, "comparisonPlots")
+  makeComparisonPlots(eqns1, eqns2, common_bins, common_coeffs, "comparisonPlots", options.noCrossTerms, options.noQuadraticTerms)
