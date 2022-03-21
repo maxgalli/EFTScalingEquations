@@ -40,7 +40,7 @@ Mix of different sets.
 No acceptance corrections
 
 ### Additional notes
-Compared to the previous [iteration](../CMS-relim-SMEFT-topU3l_22_03_16/), we have made the following additional improvements:
+Compared to the previous [iteration](https://github.com/MatthewDKnight/EFTScalingEquations/tree/main/equations/CMS-prelim-SMEFT-topU3l_22_03_16), we have made the following additional improvements:
 - Using CP5 tune in Pythia8
 - Use PDF sets recommended for UL in CMS
 - Used a consistent set of masses and input parameters
