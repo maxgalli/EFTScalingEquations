@@ -5,13 +5,13 @@ import re
 with open(sys.argv[1], "r") as f:
   txt_eqn = f.read()
 
-txt_eqn = txt_eqn.replace("*10^", "e")
+txt_eqn = txt_eqn.replace("*10^", "E")
 
 terms = []
 
 start = 0
 for i, char in enumerate(txt_eqn):
-  if char in ["+", "-"] and txt_eqn[i-1] != "e":
+  if char in ["+", "-"] and txt_eqn[i-1] != "E":
     terms.append(txt_eqn[start:i])
     start = i
 terms.append(txt_eqn[start:])
@@ -37,4 +37,4 @@ cross = {key:cross[key] for key in sorted(cross)}
 eqn = {**lin, **quad, **cross}
 
 with open(sys.argv[2], "w") as f:
-  json.dump(eqn, f, indent=4)
+  json.dump({"inclusive":eqn}, f, indent=4)
