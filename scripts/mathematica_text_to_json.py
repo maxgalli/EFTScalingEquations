@@ -5,7 +5,7 @@ import re
 with open(sys.argv[1], "r") as f:
   txt_eqn = f.read()
 
-txt_eqn = txt_eqn.replace("*10^", "E")
+txt_eqn = txt_eqn.replace("*10^", "E").strip(" ")
 
 terms = []
 
