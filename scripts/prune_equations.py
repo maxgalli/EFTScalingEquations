@@ -12,11 +12,11 @@ def cleanUp(new_json_dict, options):
       param_value = new_json_dict[tag][param]
       if abs(param_value) < options.abs_threshold:
         del new_json_dict[tag][param]
-        del new_json_dict[tag]["u_"+param]
+        if "u_"+param in new_json_dict[tag].keys(): del new_json_dict[tag]["u_"+param] #uncertainty not always there
       elif options.round:
         dp = math.ceil(-math.log10(options.abs_threshold)) + 1
         new_json_dict[tag][param] = round(new_json_dict[tag][param], dp)
-        new_json_dict[tag]["u_"+param] = round(new_json_dict[tag]["u_"+param], dp)
+        if "u_"+param in new_json_dict[tag].keys(): new_json_dict[tag]["u_"+param] = round(new_json_dict[tag]["u_"+param], dp)
 
   return new_json_dict
 
