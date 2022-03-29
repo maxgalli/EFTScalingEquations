@@ -1,0 +1,8 @@
+cdp:
+    val: 0.
+    max: 0.5
+    min: -0.5
+cpg:
+    val: 0.
+    max: 0.5
+    min: -0.5
