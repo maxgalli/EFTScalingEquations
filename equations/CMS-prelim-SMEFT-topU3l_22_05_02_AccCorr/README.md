@@ -30,7 +30,7 @@ We consider the all CP-even and CP-odd operators except in GGH where we neglect 
 
 
 ### Notes on acceptance
-No acceptance corrections
+Acceptance corrected equation for H->4l.
 
 ### Additional notes
 Changes with respect to the last [iteration](../CMS-prelim-SMEFT-topU3l_22_03_24) include:
