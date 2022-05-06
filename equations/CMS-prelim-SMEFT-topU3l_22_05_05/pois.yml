@@ -1,0 +1,8 @@
+chg:
+    val: 0.
+    max: 5.
+    min: -5.
+chbox:
+    val: 0.
+    max: 5.
+    min: -5.

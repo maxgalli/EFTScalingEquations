@@ -38,3 +38,14 @@ which is meant to be fed to the script ```scripts_differentials/eft2obs_to_chann
 Combine:
 - [branch](https://github.com/maxgalli/HiggsAnalysis-CombinedLimit/tree/EFT_model)
 - [model](https://github.com/maxgalli/HiggsAnalysis-CombinedLimit/blob/EFT_model/python/DIFFtoSMEFTModel.py)
+
+# Update 02.05.22
+
+Following the production of new equations with differentials routine by Matt, I
+decided to adapt the model to a layout of this repo which is more similar to the
+original. That said, the differences between this branch and the main one are
+(so far) the following:
+
+- within the ```differentials``` subfolder, I added one subfolder for ```hgg```,
+  since we are going to have one for each decay channel;
+- the usual ```pois.yml``` file is added to decide ranges and pois.
