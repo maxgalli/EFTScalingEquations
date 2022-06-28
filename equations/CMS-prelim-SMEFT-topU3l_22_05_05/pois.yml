@@ -1,8 +1,20 @@
 chg:
     val: 0.
+    max: 1.
+    min: -1.
+chbox:
+    val: 0.
     max: 5.
     min: -5.
-chbox:
+chdd:
+    val: 0.
+    max: 5.
+    min: -20.
+cthre:
+    val: 0.
+    max: 5.
+    min: -25.
+ctgre:
     val: 0.
     max: 5.
     min: -5.
