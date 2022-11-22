@@ -12,6 +12,8 @@ python scripts_differentials/yaml_from_pruning.py --prediction-dir equations/CMS
 import argparse
 from pathlib import Path
 import yaml
+import json
+import os
 
 
 def parse_arguments():
@@ -31,6 +33,7 @@ def parse_arguments():
     )
     parser.add_argument("--threshold", type=float, default=0.0001)
     parser.add_argument("--skip-quadratic", action="store_true", default=False)
+    parser.add_argument("--new-dir", action="store_true", default=False)
 
     return parser.parse_args()
 
@@ -58,15 +61,16 @@ def main(args):
                     all_files_to_open.append(full_path)
     print(all_files_to_open)
 
+    # YAML file
     for file_name in all_files_to_open:
         with open(file_name, "r") as f:
-            dct = yaml.safe_load(f)
+            dct = json.load(f)
             for edge in dct:
                 for expression in dct[edge]:
                     if expression.startswith("A_"):
                         wc = expression.split("_")[1]
                         if (
-                            dct[edge][expression] > args.threshold
+                            abs(dct[edge][expression]) > args.threshold
                             and wc not in good_coeffs
                         ):
                             good_coeffs.append(wc)
@@ -77,7 +81,7 @@ def main(args):
                     ):
                         wc = expression.split("_")[1]
                         if (
-                            dct[edge][expression] > args.threshold
+                            abs(dct[edge][expression]) > args.threshold
                             and wc not in good_coeffs
                         ):
                             good_coeffs.append(wc)
@@ -90,6 +94,31 @@ def main(args):
 
     with open(args.output_file, "w") as f:
         yaml.dump(dct_to_dump, f)
+
+    # New directory
+    if args.new_dir:
+        print("New directory")
+        new_prediction_dir = (
+            args.prediction_dir + f"_pruned{str(args.threshold).replace('.', 'p')}"
+        )
+
+        for file_name in all_files_to_open:
+            print(file_name)
+            new_dct = {}
+            with open(file_name, "r") as f:
+                dct = json.load(f)
+                for edge in dct:
+                    new_dct[edge] = {}
+                    for expression in dct[edge]:
+                        if not expression.startswith("u_"):
+                            if abs(dct[edge][expression]) > args.threshold:
+                                new_dct[edge][expression] = dct[edge][expression]
+            new_file_name = file_name.replace(args.prediction_dir, new_prediction_dir)
+            Path("/".join(new_file_name.split("/")[:-1])).mkdir(
+                parents=True, exist_ok=True
+            )
+            with open(new_file_name, "w") as f:
+                json.dump(new_dct, f, indent=4)
 
 
 if __name__ == "__main__":
