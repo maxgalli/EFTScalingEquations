@@ -4,20 +4,27 @@ import json
 
 
 input_files = [
-    #"../equations/CMS-prelim-SMEFT-topU3l_22_05_05/differentials/decays/hzz/ggHZZ_SMEFTsim_topU3l_pt_h.json",
-    #"../equations/CMS-prelim-SMEFT-topU3l_22_05_05/differentials/decays/hzz/HZZ_SMEFTsim_topU3l_pt_h.json",
+    # "../equations/CMS-prelim-SMEFT-topU3l_22_05_05/differentials/decays/hzz/ggHZZ_SMEFTsim_topU3l_pt_h.json",
+    # "../equations/CMS-prelim-SMEFT-topU3l_22_05_05/differentials/decays/hzz/HZZ_SMEFTsim_topU3l_pt_h.json",
     "../equations/CMS-prelim-SMEFT-topU3l_22_05_05/differentials/decays/hzz/ggHZZ_SMEFTsim_topU3l_pt_h.json",
     "../equations/CMS-prelim-SMEFT-topU3l_22_05_05/differentials/decays/hzz/ggHZZ_SMEFTsim_topU3l_pt_hc.json",
-    "../equations/CMS-prelim-SMEFT-topU3l_22_05_05/differentials/decays/hzz/ggHZZ_SMEFTsim_topU3l_deltaphijj.json"
+    "../equations/CMS-prelim-SMEFT-topU3l_22_05_05/differentials/decays/hzz/ggHZZ_SMEFTsim_topU3l_deltaphijj.json",
+    "../equations/CMS-prelim-SMEFT-topU3l_22_05_05/differentials/decays/hww/ggHWW_SMEFTsim_topU3l_pt_h.json",
 ]
 
 output_dirs = [
-    #"/eos/home-g/gallim/www/plots/DifferentialCombination/CombinationRun2/Checks/230519_mattchecks",
-    #"/eos/home-g/gallim/www/plots/DifferentialCombination/CombinationRun2/Checks/230601_mattchecks_deconly",
+    # "/eos/home-g/gallim/www/plots/DifferentialCombination/CombinationRun2/Checks/230519_mattchecks",
+    # "/eos/home-g/gallim/www/plots/DifferentialCombination/CombinationRun2/Checks/230601_mattchecks_deconly",
     "/eos/home-g/gallim/www/plots/DifferentialCombination/CombinationRun2/Checks/230605_mattchecks_morestats",
     "/eos/home-g/gallim/www/plots/DifferentialCombination/CombinationRun2/Checks/230605_mattchecks_morestats_pthc",
-    "/eos/home-g/gallim/www/plots/DifferentialCombination/CombinationRun2/Checks/230605_mattchecks_deltaphijj"
+    "/eos/home-g/gallim/www/plots/DifferentialCombination/CombinationRun2/Checks/230605_mattchecks_deltaphijj",
+    "/eos/home-g/gallim/www/plots/DifferentialCombination/CombinationRun2/Checks/230608_mattchecks_hww",
 ]
+
+inclusive_pred_file = "../equations/CMS-prelim-SMEFT-topU3l_22_05_05_AccCorr/decay.json"
+
+with open(inclusive_pred_file) as f:
+    inclusive_pred_dct = json.load(f)
 
 names = [f.split("/")[-1] for f in output_dirs]
 
@@ -25,9 +32,10 @@ max_diffs = {}
 
 for name, input_file, output_dir in zip(names, input_files, output_dirs):
     print("Plotting {}".format(name))
-    
+    channel = "ZZ" if "ZZ" in input_file else "WW"
+
     differences = []
-    
+
     with open(input_file) as f:
         coeff_dct = json.load(f)
 
@@ -68,31 +76,25 @@ for name, input_file, output_dir in zip(names, input_files, output_dirs):
                 pass
         ax.errorbar(x, vals, yerr=uncs, fmt="o")
 
-        # fit to a constant
-        deg = 0
-        fitted_deg = np.polyfit(x, vals, deg)[0]
-        #constant_line = lambda x, c: c * np.ones_like(x)
-        #ax.plot(x, constant_line(x, fitted_deg), "--", label="fit to constant", color="black")
-        ax.axhline(y=fitted_deg, linestyle="--", label="fit to constant", color="darkgray")
-        
+        # draw a band
+        try:
+            central_value = inclusive_pred_dct[channel][coeff]
+            unc = inclusive_pred_dct[channel]["u_" + coeff]
+            ax.axhspan(central_value - unc, central_value + unc, alpha=0.2, color="red")
+            ax.axhline(central_value, color="red", linestyle="--")
+        except KeyError:
+            print(f"Key {key} not found in inclusive prediction")
+            pass
+
         ax.set_xlabel("pT [GeV]")
         ax.set_ylabel(coeff)
         ax.set_title(coeff)
-        ax.legend()
+        # ax.legend()
 
         mx = max(vals)
         mn = min(vals)
         # relative difference between max and min
         rel_diff = np.abs((mx - mn) / mx)
-        #write in the plot
-        #ax.text(
-        #0.9,
-        #0.9,
-        #"(max-min)/max = {:.2f}%".format(rel_diff * 100),
-        #horizontalalignment="center",
-        #verticalalignment="center",
-        #transform=ax.transAxes,
-        #)
         differences.append((coeff, rel_diff))
 
         for ext in ["png", "pdf"]:
