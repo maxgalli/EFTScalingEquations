@@ -1,4 +1,4 @@
-# CMS-ForDiff-230530
+# CMS-ForDiffAllSMEFTsim-230530-FullDecay
 
 In general, the folders starting with ```CMS-ForDiff-230530*``` contain the
 parametrizations for differential cross sections. 
@@ -10,10 +10,8 @@ Differences mostly come from production and decay.
 
 In each decay channel, the equations inside JSON files called
 ```FullProduction_*``` are produced by merging the ones from all the different
-production modes. The important aspect is that the ones for gluon fusion are
-produced with SMEFT@NLO, which does not contain ```chgtil```.
+production modes. In this case, all the production modes are run with SMEFTsim.
 
 ## Decay
 
-The ```gamgam``` part of the decay is derived analitically, hence it does not
-contain ```chbtil```, ```chwtil``` and ```chwbtil```.
+The ```gamgam``` part of the decay is derivedwith the standalone reweight and contains ```chbtil```, ```chwtil``` and ```chwbtil```.

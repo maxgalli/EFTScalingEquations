@@ -1,4 +1,4 @@
-# CMS-ForDiff-230530
+# CMS-ForDiff-230530-FullDecay# CMS-ForDiff-230530
 
 In general, the folders starting with ```CMS-ForDiff-230530*``` contain the
 parametrizations for differential cross sections. 
@@ -15,5 +15,4 @@ produced with SMEFT@NLO, which does not contain ```chgtil```.
 
 ## Decay
 
-The ```gamgam``` part of the decay is derived analitically, hence it does not
-contain ```chbtil```, ```chwtil``` and ```chwbtil```.
+The ```gamgam``` part of the decay is derivedwith the standalone reweight and contains ```chbtil```, ```chwtil``` and ```chwbtil```.
